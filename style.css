@@ -1,1 +1,37 @@
+.buttonPanelDiv {
+  display: flex;
+}
 
+.buttonRowsDivGroup {
+  display: flex;
+}
+
+.individualButtonDiv {
+  height: 75px;
+  width: 75px;
+}
+
+.button {
+  height: 65px;
+  width: 65px;
+  border: solid black 1px;
+  border-radius: 10px;
+}
+
+.memoryDiv {
+  width: 50px;
+}
+
+.memory {
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+}
+
+#equalButtonDiv {
+  width: 150px;
+}
+
+#equal {
+  width: 140px;
+}
