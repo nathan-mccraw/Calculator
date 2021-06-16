@@ -1,3 +1,38 @@
+body {
+  text-align: center;
+}
+
+header > h1 {
+  margin-bottom: 0;
+}
+
+header > p {
+  margin-top: 0;
+}
+
+#entireCalculator {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  border: solid black 4px;
+  border-radius: 5px;
+  width: 320px;
+  height: 450px;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(14, 14, 22, 0.63);
+}
+
+#calculatorScreen {
+  height: 50px;
+  width: 285px;
+  background-color: rgba(233, 166, 89, 0.699);
+  color: black;
+  border: solid black 3px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
 .buttonPanelDiv {
   display: flex;
 }
@@ -16,6 +51,8 @@
   width: 65px;
   border: solid black 1px;
   border-radius: 10px;
+  background-color: rgba(245, 245, 245, 0.411);
+  font-size: x-large;
 }
 
 .memoryDiv {
@@ -26,6 +63,7 @@
   border-radius: 50%;
   height: 40px;
   width: 40px;
+  font-size: smaller;
 }
 
 #equalButtonDiv {
