@@ -35,19 +35,25 @@ function whichButtonWasPressed(e) {
 }
 
 function updateCalculatorScreen(calculatorValues) {
-  document.querySelector("#calculatorScreenAnswer").textContent =
-    calculatorValues.screenValue;
+  const {
+    numberString1,
+    numberString2,
+    operator,
+    numberInMemory,
+    screenValue,
+  } = calculatorValues;
+
+  document.querySelector("#calculatorScreenAnswer").textContent = screenValue;
 
   document.querySelector(
     "#calculatorScreenInput"
-  ).textContent = `${calculatorValues.numberString1} ${calculatorValues.operator} ${calculatorValues.numberString2}`;
+  ).textContent = `${numberString1} ${operator} ${numberString2}`;
 
-  if (calculatorValues.numberInMemory === "")
-    document.querySelector("#memoryStored").textContent = "";
+  if (!numberInMemory) document.querySelector("#memoryStored").textContent = "";
   else
     document.querySelector(
       "#memoryStored"
-    ).textContent = `MEM: ${calculatorValues.numberInMemory}`;
+    ).textContent = `MEM: ${numberInMemory}`;
 }
 
 function clearButtonPress(calculatorValues) {
@@ -60,8 +66,7 @@ function clearButtonPress(calculatorValues) {
 }
 
 function numericalButtonPress(calculatorValues, eventTarget) {
-  if (isNotDoubleDecimal(calculatorValues, eventTarget))
-    return calculatorValues;
+  if (isDoubleDecimal(calculatorValues, eventTarget)) return calculatorValues;
   if (calculatorValues.operator) {
     calculatorValues.numberString2 += eventTarget.textContent;
     calculatorValues.screenValue = calculatorValues.numberString2;
@@ -73,13 +78,12 @@ function numericalButtonPress(calculatorValues, eventTarget) {
   return calculatorValues;
 }
 
-function isNotDoubleDecimal(calculatorValues, eventTarget) {
+function isDoubleDecimal(calculatorValues, eventTarget) {
   if (
     !Number.isSafeInteger(parseFloat(calculatorValues.screenValue)) &&
     eventTarget.textContent === "."
   )
     return true;
-  else return false;
 }
 
 function operatorButtonPress(calculatorValues, eventTarget) {
@@ -91,7 +95,7 @@ function operatorButtonPress(calculatorValues, eventTarget) {
 }
 
 function equalButtonPress(calculatorValues) {
-  if (calculatorValues.numberString1 === "") return;
+  if (!calculatorValues.numberString1) return;
   else {
     calculatorValues.numberString1 = completeCalculation(calculatorValues);
     calculatorValues.screenValue = calculatorValues.numberString1;

@@ -4,23 +4,34 @@ body {
 
 header > h1 {
   margin-bottom: 0;
+  color: rgb(248, 231, 205);
+  background-color: rgba(31, 22, 12, 0.699);
+  margin: 0 0 0px 0;
 }
 
 header > p {
   margin-top: 0;
+  color: rgb(248, 231, 205);
+  background-color: rgba(31, 22, 12, 0.699);
+  margin: 0 0 15px 0;
 }
 
 #entireCalculator {
   margin: auto;
   display: flex;
   flex-direction: column;
-  border: solid black 4px;
+  border: solid rgba(97, 97, 97, 0.171) 3px;
   border-radius: 5px;
   width: 320px;
   height: 450px;
   justify-content: center;
   align-items: center;
-  background-color: rgba(14, 14, 22, 0.63);
+  background-color: rgba(43, 43, 43, 0.93);
+}
+
+body {
+  background-image: url(/photos/Calculator\ Background\ Image.jpg);
+  background-size: contain;
 }
 
 #calculatorScreen {
@@ -96,4 +107,15 @@ header > p {
 
 #equal {
   width: 140px;
+}
+
+footer {
+  font-size: x-small;
+  text-align: left;
+  position: fixed;
+  bottom: 3px;
+  color: rgba(31, 22, 12, 0.699);
+  background-color: rgba(245, 245, 245, 0.651);
+  border-radius: 5px;
+  padding: 2px;
 }
