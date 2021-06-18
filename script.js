@@ -1,7 +1,3 @@
-document
-  .getElementById("buttonPanelDiv")
-  .addEventListener("click", whichButtonWasPressed);
-
 let calculatorValues = {
   numberString1: "",
   numberString2: "",
@@ -66,15 +62,6 @@ function clearButtonPress(calculatorValues) {
 }
 
 function numericalButtonPress(calculatorValues, eventTarget) {
-  console.log(
-    `${isDoubleDecimal(calculatorValues, eventTarget)} ${isTenDigits(
-      calculatorValues
-    )} ${
-      isDoubleDecimal(calculatorValues, eventTarget) ||
-      isTenDigits(calculatorValues)
-    }`
-  );
-
   if (
     isDoubleDecimal(calculatorValues, eventTarget) ||
     isTenDigits(calculatorValues)
@@ -156,3 +143,7 @@ function completeCalculation(calculatorValues) {
 
   return answer.toFixed(3);
 }
+
+document
+  .getElementById("buttonPanelDiv")
+  .addEventListener("click", whichButtonWasPressed);
