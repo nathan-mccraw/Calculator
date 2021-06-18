@@ -66,7 +66,20 @@ function clearButtonPress(calculatorValues) {
 }
 
 function numericalButtonPress(calculatorValues, eventTarget) {
-  if (isDoubleDecimal(calculatorValues, eventTarget)) return calculatorValues;
+  console.log(
+    `${isDoubleDecimal(calculatorValues, eventTarget)} ${isTenDigits(
+      calculatorValues
+    )} ${
+      isDoubleDecimal(calculatorValues, eventTarget) ||
+      isTenDigits(calculatorValues)
+    }`
+  );
+
+  if (
+    isDoubleDecimal(calculatorValues, eventTarget) ||
+    isTenDigits(calculatorValues)
+  )
+    return calculatorValues;
   if (calculatorValues.operator) {
     calculatorValues.numberString2 += eventTarget.textContent;
     calculatorValues.screenValue = calculatorValues.numberString2;
@@ -84,6 +97,10 @@ function isDoubleDecimal(calculatorValues, eventTarget) {
     eventTarget.textContent === "."
   )
     return true;
+}
+
+function isTenDigits(calculatorValues) {
+  if (calculatorValues.screenValue.length >= 10) return true;
 }
 
 function operatorButtonPress(calculatorValues, eventTarget) {

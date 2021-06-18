@@ -30,7 +30,7 @@ header > p {
 }
 
 body {
-  background-image: url(/photos/Calculator\ Background\ Image.jpg);
+  background-image: url(\photos/Calculator\ Background\ Image.jpg);
   background-size: contain;
 }
 
