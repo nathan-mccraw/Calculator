@@ -2,6 +2,11 @@
 <html lang="en">
   <head>
     <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap"
+      rel="stylesheet"
+    />
     <title>Calculator</title>
   </head>
   <body>
@@ -10,7 +15,13 @@
       <p><sub>Created by: Nathan McCraw</sub></p>
     </header>
     <div id="entireCalculator">
-      <div id="calculatorScreen"></div>
+      <div id="calculatorScreen">
+        <div id="screenSuperScript">
+          <span id="memoryStored"></span
+          ><span id="calculatorScreenInput"></span>
+        </div>
+        <div id="calculatorScreenAnswer">0</div>
+      </div>
       <div id="buttonPanelDiv">
         <div class="buttonRowsDivGroup" id="buttonRow1Div">
           <div class="individualButtonDiv">

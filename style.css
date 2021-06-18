@@ -24,13 +24,37 @@ header > p {
 }
 
 #calculatorScreen {
-  height: 50px;
+  font-family: "Orbitron", sans-serif;
+  height: 55px;
   width: 285px;
   background-color: rgba(233, 166, 89, 0.699);
   color: black;
   border: solid black 3px;
   border-radius: 5px;
   margin-bottom: 10px;
+}
+
+#screenSuperScript {
+  display: flex;
+  justify-content: space-between;
+}
+
+#calculatorScreenInput {
+  height: 15px;
+  text-align: right;
+  font-size: x-small;
+}
+
+#memoryStored {
+  height: 15px;
+  text-align: left;
+}
+
+#calculatorScreenAnswer {
+  height: 35px;
+  width: 285px;
+  text-align: right;
+  font-size: xx-large;
 }
 
 .buttonPanelDiv {

@@ -1,113 +1,137 @@
-/*
-Event Listener
-    method 2)
-        - start event listener on button panel div on click
-        - use an "if else" to determine which class was clicked on
-        - class for the numerical buttons would use a "numericalButtonPress" call back function on their event listener
-        - class for the operator buttons would use a "operatorButtonPress" call back function on their event listener
-        - class for the memory buttons would use a "memoryButtonPress" call back function on their event listener
-        - class for the equal button would use a "equalButtonPress" call back function on it's event listener
-*/
-
 document
   .getElementById("buttonPanelDiv")
   .addEventListener("click", whichButtonWasPressed);
 
-let variableValues = {
-  number1: "",
-  number2: "",
+let calculatorValues = {
+  numberString1: "",
+  numberString2: "",
   numberInMemory: "",
   operator: "",
-  screenValue: "",
+  screenValue: "0",
 };
 
 function whichButtonWasPressed(e) {
-  console.log(e);
-
   if (e.target.classList.value.includes("clear")) {
-    variableValues = clearButtonPress(variableValues);
+    calculatorValues = clearButtonPress(calculatorValues);
   }
 
   if (e.target.classList.value.includes("number")) {
-    variableValues = numericalButtonPress(variableValues, e.target);
+    calculatorValues = numericalButtonPress(calculatorValues, e.target);
   }
 
   if (e.target.classList.value.includes("operator")) {
-    variableValues = operatorButtonPress(variableValues, e.target);
+    calculatorValues = operatorButtonPress(calculatorValues, e.target);
   }
 
   if (e.target.classList.value.includes("memory")) {
-    variableValues = memoryButtonPress(variableValues, e.target);
+    calculatorValues = memoryButtonPress(calculatorValues, e.target);
   }
 
   if (e.target.classList.value.includes("equal")) {
-    variableValues = equalButtonPress(variableValues, e.target);
+    calculatorValues = equalButtonPress(calculatorValues, e.target);
   }
 
-  document.querySelector("#calculatorScreen").textContent =
-    variableValues.screenValue;
+  updateCalculatorScreen(calculatorValues);
 }
 
-function clearButtonPress(variableValues) {
-  variableValues.number1 = "";
-  variableValues.number2 = "";
-  variableValues.operator = "";
-  variableValues.screenValue = "0";
+function updateCalculatorScreen(calculatorValues) {
+  document.querySelector("#calculatorScreenAnswer").textContent =
+    calculatorValues.screenValue;
 
-  return variableValues;
+  document.querySelector(
+    "#calculatorScreenInput"
+  ).textContent = `${calculatorValues.numberString1} ${calculatorValues.operator} ${calculatorValues.numberString2}`;
+
+  if (calculatorValues.numberInMemory === "")
+    document.querySelector("#memoryStored").textContent = "";
+  else
+    document.querySelector(
+      "#memoryStored"
+    ).textContent = `MEM: ${calculatorValues.numberInMemory}`;
 }
 
-function numericalButtonPress(variableValues, eventTarget) {
-  if (variableValues.operator === "") {
-    variableValues.number1 += eventTarget.textContent;
-    variableValues.screenValue = variableValues.number1;
+function clearButtonPress(calculatorValues) {
+  calculatorValues.numberString1 = "";
+  calculatorValues.numberString2 = "";
+  calculatorValues.operator = "";
+  calculatorValues.screenValue = "0";
+
+  return calculatorValues;
+}
+
+function numericalButtonPress(calculatorValues, eventTarget) {
+  if (isNotDoubleDecimal(calculatorValues, eventTarget))
+    return calculatorValues;
+  if (calculatorValues.operator) {
+    calculatorValues.numberString2 += eventTarget.textContent;
+    calculatorValues.screenValue = calculatorValues.numberString2;
   } else {
-    variableValues.number2 += eventTarget.textContent;
-    variableValues.screenValue = variableValues.number2;
+    calculatorValues.numberString1 += eventTarget.textContent;
+    calculatorValues.screenValue = calculatorValues.numberString1;
   }
 
-  return variableValues;
+  return calculatorValues;
 }
 
-function operatorButtonPress(variableValues, eventTarget) {
-  if (variableValues.number2 === "") {
-    variableValues.operator = eventTarget.textContent;
-  } else {
-    completeCalculation(variableValues);
-    variableValues.operator = eventTarget.textContent;
-  }
-
-  return variableValues;
+function isNotDoubleDecimal(calculatorValues, eventTarget) {
+  if (
+    !Number.isSafeInteger(parseFloat(calculatorValues.screenValue)) &&
+    eventTarget.textContent === "."
+  )
+    return true;
+  else return false;
 }
 
-function equalButtonPress(variableValues, eventTarget) {
-  if (variableValues.number1 === "") return;
+function operatorButtonPress(calculatorValues, eventTarget) {
+  if (calculatorValues.numberString2) equalButtonPress(calculatorValues);
+
+  calculatorValues.operator = eventTarget.textContent;
+
+  return calculatorValues;
+}
+
+function equalButtonPress(calculatorValues) {
+  if (calculatorValues.numberString1 === "") return;
   else {
-    variableValues.number1 = completeCalculation(variableValues, eventTarget);
-    variableValues.screenValue = variableValues.number1;
-    variableValues.number2 = "";
+    calculatorValues.numberString1 = completeCalculation(calculatorValues);
+    calculatorValues.screenValue = calculatorValues.numberString1;
+    calculatorValues.numberString2 = "";
+    calculatorValues.operator = "";
   }
-  return variableValues;
+  return calculatorValues;
 }
 
-function memoryButtonPress(variableValues, eventTarget) {
+function memoryButtonPress(calculatorValues, eventTarget) {
   if (eventTarget.textContent === "M+") {
-    variableValues.numberInMemory = variableValues.screenValue;
+    calculatorValues.numberInMemory = calculatorValues.screenValue;
   } else if (eventTarget.textContent === "M-") {
-    variableValues.numberInMemory = "";
-  } else if (variableValues.number2 === "") {
-    variableValues.number2 = variableValues.numberInMemory;
-  } else variableValues.number2 = variableValues.numberInMemory;
+    calculatorValues.numberInMemory = "";
+  } else if (eventTarget.textContent == "MR") {
+    if (calculatorValues.numberInMemory) {
+      if (calculatorValues.operator) {
+        calculatorValues.numberString2 = calculatorValues.numberInMemory;
+        calculatorValues.screenValue = calculatorValues.numberString2;
+      } else {
+        calculatorValues.numberString1 = calculatorValues.numberInMemory;
+        calculatorValues.screenValue = calculatorValues.numberString1;
+      }
+    }
+  }
 
-  variableValues.screenValue = variableValues.numberInMemory;
+  return calculatorValues;
 }
 
-function completeCalculation(variableValues, eventTarget) {
-  // - decide if number1 or number2 is an integer or float
-  // - convert accordingly
-  // - perform number1 = number1 operator number2
-  // - set number2 = ""
-  // - set operator = ""
-  // - return number1
-  return variableValues;
+function completeCalculation(calculatorValues) {
+  let number1 = parseFloat(calculatorValues.numberString1);
+  let number2 = parseFloat(calculatorValues.numberString2);
+  let answer;
+
+  if (calculatorValues.operator === "*") answer = number1 * number2;
+  if (calculatorValues.operator === "/") answer = number1 / number2;
+  if (calculatorValues.operator === "-") answer = number1 - number2;
+  if (calculatorValues.operator === "+") answer = number1 + number2;
+
+  if (Number.isSafeInteger(answer)) return answer.toString();
+
+  return answer.toFixed(3);
 }
