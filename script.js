@@ -78,16 +78,16 @@ function numericalButtonPress(calculatorValues, eventTarget) {
   return calculatorValues;
 }
 
-function isDoubleDecimal(calculatorValues, eventTarget) {
+function isDoubleDecimal({ screenValue }, eventTarget) {
   if (
-    !Number.isSafeInteger(parseFloat(calculatorValues.screenValue)) &&
+    !Number.isSafeInteger(parseFloat(screenValue)) &&
     eventTarget.textContent === "."
   )
     return true;
 }
 
-function isTenDigits(calculatorValues) {
-  if (calculatorValues.screenValue.length >= 10) return true;
+function isTenDigits({ screenValue }) {
+  if (screenValue.length >= 10) return true;
 }
 
 function operatorButtonPress(calculatorValues, eventTarget) {
@@ -129,15 +129,15 @@ function memoryButtonPress(calculatorValues, eventTarget) {
   return calculatorValues;
 }
 
-function completeCalculation(calculatorValues) {
-  let number1 = parseFloat(calculatorValues.numberString1);
-  let number2 = parseFloat(calculatorValues.numberString2);
+function completeCalculation({ numberString1, numberString2, operator }) {
+  let number1 = parseFloat(numberString1);
+  let number2 = parseFloat(numberString2);
   let answer;
 
-  if (calculatorValues.operator === "*") answer = number1 * number2;
-  if (calculatorValues.operator === "/") answer = number1 / number2;
-  if (calculatorValues.operator === "-") answer = number1 - number2;
-  if (calculatorValues.operator === "+") answer = number1 + number2;
+  if (operator === "*") answer = number1 * number2;
+  if (operator === "/") answer = number1 / number2;
+  if (operator === "-") answer = number1 - number2;
+  if (operator === "+") answer = number1 + number2;
 
   if (Number.isSafeInteger(answer)) return answer.toString();
 
