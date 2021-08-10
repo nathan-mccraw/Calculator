@@ -10,7 +10,7 @@ Use the calculator application [here](https://nathan-mccraw.github.io/Calculator
 
 To use the Calculator application:
 
-1.  Follow this [link](https://nathan-mccraw.github.io/Calculator/) to play the game on your browser.
+1.  Follow this [link](https://nathan-mccraw.github.io/Calculator/) to use the app your browser.
 
 2.  To use the application locally and to obtain the code base for the application, you can either download a zip file of the code and application or you can fork this repository to make changes and maintain version control.  You can download the code in a zip file by clicking "code" -> download zip from this repository dashboard (see picture below), extrtact the files from the zip file and skip to step 6.  If you wish to fork this repository then go to step 3.
 
